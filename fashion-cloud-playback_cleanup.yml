@@ -1,0 +1,30 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Deleting the ELB
+      ec2_elb_lb:
+        name: fc-load-balancer
+        region: us-east-1
+        state: absent
+
+    - name: Get the Instances facts
+      ec2_instance_facts:
+         region: us-east-1
+         filters:
+            "tag:application": fashion-cloud
+            "instance-state-name": running
+      register: instance_facts
+
+    - name: Show Instances info
+      ec2:
+         region: us-east-1
+         instance_id: "{{ item.instance_id }}"
+         state: absent
+      with_items: "{{ instance_facts.instances }}"
+
+    - name: Deleting the security group
+      ec2_group:
+        name: fc-webservers
+        region: us-east-1
+        state: absent
+

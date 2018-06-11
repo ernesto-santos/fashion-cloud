@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  tasks:
+
+  - name: Get the Instances facts
+    ec2_instance_facts:
+       region: us-east-1
+       filters:
+          "tag:application": fashion-cloud
+          "instance-state-name": running
+    register: instance_facts
+
+  - name: Show Instances info
+    debug:
+       msg: "DNS: {{ item.public_dns_name }} - State: {{ item.state }} - Instance ID: {{ item.instance_id }}"
+    with_items: "{{ instance_facts.instances }}"

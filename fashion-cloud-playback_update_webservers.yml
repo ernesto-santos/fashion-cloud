@@ -1,0 +1,30 @@
+---
+- hosts: localhost
+  tasks:
+
+  - name: Get the Instances facts
+    ec2_instance_facts:
+       region: us-east-1
+       filters:
+          "tag:application": fashion-cloud
+          "instance-state-name": running
+    register: instance_facts
+
+  - name: Storing the EC2 provisioned instances IPs
+    add_host:
+      hostname: "{{ item.public_ip_address }}"
+      groupname: ec2_instance_ips
+    with_items: "{{ instance_facts.instances }}"
+
+- hosts: ec2_instance_ips
+  remote_user: ubuntu
+  become: True
+  tasks:
+    - name: Creating a small welcome index page
+      copy:
+        dest: /usr/share/nginx/html/index.html
+        content: "New Hello World - I am the {{ ansible_hostname }}"
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted

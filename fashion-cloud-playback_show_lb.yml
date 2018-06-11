@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  tasks:
+
+  - name: Get the LB facts
+    ec2_elb_facts:
+       names: fc-load-balancer
+       region: us-east-1
+    register: elb_facts
+
+  - name: Show the dns name
+    debug:
+       msg: "{{ item.dns_name }}"
+    with_items: "{{ elb_facts.elbs }}"
