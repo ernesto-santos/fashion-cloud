@@ -53,6 +53,9 @@ $ # if you would like to check the key..
 $ ssh-add -l
 ```
 
+
+
+
 # 2) Creating the AWS components:
 
 Run the script to create the components:
@@ -60,6 +63,9 @@ Run the script to create the components:
 ```
 $ ansible-playbook -i ./aws-invent/ec2.py ./fashion-cloud-playback_create.yml
 ```
+
+
+
 
 # 3) The webservers IP addresses:
 
@@ -75,6 +81,9 @@ $ ansible-playbook -i ./aws-invent/ec2.py ./fashion-cloud-playback_show_instance
 $ ssh ubuntu@<<instance_name_or_ip>> -i ./key-pair/fashion-cloud.pem
 ```
 
+
+
+
 # 4) The LB:
 
 ## 4.1) Showing the LB info (this will show you the URL to use on the web browser):
@@ -83,26 +92,41 @@ $ ssh ubuntu@<<instance_name_or_ip>> -i ./key-pair/fashion-cloud.pem
 $ ansible-playbook -i ./aws-invent/ec2.py ./fashion-cloud-playback_show_lb.yml
 ```
 
+
+
+
 # 5) If you want to change the nginx index.html content:
 
 Edit the script "fashion-cloud-playback_update_webservers.yml".
+
 Then execute it to update the instances.
 
 ```
 $ ansible-playbook -i ./aws-invent/ec2.py ./fashion-cloud-playback_update_webservers.yml
 ```
 
+
+
+
 # 6) When you finish, you can clean-up the env:
 
 This script will remove all the created components.
+
 OBS: Maybe you will need to execute the script twice, intending to remove the "security group". This is because it is dependency for the instances, and we need to remove/terminate the instances before we can remove the "security group".
 
 ```
 $ ansible-playbook -i ./aws-invent/ec2.py ./fashion-cloud-playback_cleanup.yml
 ```
 
+
+
+
 I hope you enjoy the lab / challenge.
+
 Please, let me know if something does not work properly.
 
+
+
 Best,
+
 Ernesto 
