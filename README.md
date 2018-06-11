@@ -1,26 +1,30 @@
-1) Environment setup:
+# 1) Environment setup:
 
-1.1) Install Ansible:
+## 1.1) Install Ansible:
 
 Ansible Install Guide:
+
 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 
 
-1.2) Install the Python Ansible module:
+## 1.2) Install the Python Ansible module:
 
+```
 $ pip install ansible
+```
 
+## 1.3) Install the Python Boto modules:
 
-1.3) Install the Python Boto modules:
-
+```
 $ pip install boto
 $ pip install boto3
+```
 
+## 1.4) Clone the repository to your local machine:
 
-1.4) Clone the repository to your local machine:
-
+```
 $ git clone https://github.com/ernesto-santos/fashion-cloud.git
-
+```
 
 1.5) Go to the directory where your cloned repository is:
 
